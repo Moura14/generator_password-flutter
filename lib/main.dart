@@ -14,6 +14,13 @@ class MyApp extends StatelessWidget {
         title: 'Gerador de senhas',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          checkboxTheme: CheckboxThemeData(
+              fillColor: MaterialStateColor.resolveWith((states) {
+            if (states.contains(MaterialState.selected)) {
+              return Colors.black;
+            }
+            return Colors.black;
+          })),
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
           useMaterial3: true,
         ),
