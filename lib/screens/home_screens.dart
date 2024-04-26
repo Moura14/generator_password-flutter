@@ -13,10 +13,10 @@ class HomeScreens extends StatefulWidget {
 class _HomeScreensState extends State<HomeScreens> {
   final password = RandomPasswordGenerator();
   String newPassoword = '';
-  final bool _isWithLetters = false;
-  final bool _isWithUppercase = false;
-  final bool _isWithNumbers = false;
-  final bool _isWithSpecial = false;
+  bool _isWithLetters = false;
+  bool _isWithUppercase = false;
+  bool _isWithNumbers = false;
+  bool _isWithSpecial = false;
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +34,22 @@ class _HomeScreensState extends State<HomeScreens> {
               padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
-                  CheckBoxList('Lower Case', _isWithLetters),
-                  CheckBoxList('Upper case', _isWithUppercase),
-                  CheckBoxList('Números', _isWithNumbers),
-                  CheckBoxList('Símbolos', _isWithSpecial),
+                  CheckBox('Lower Case', (value) {
+                    _isWithLetters = value;
+                    setState(() {});
+                  }, _isWithLetters),
+                  CheckBox('Upper Case', (value) {
+                    _isWithUppercase = value;
+                    setState(() {});
+                  }, _isWithUppercase),
+                  CheckBox('Símbolos', (value) {
+                    _isWithSpecial = value;
+                    setState(() {});
+                  }, _isWithSpecial),
+                  CheckBox('Números', (value) {
+                    _isWithNumbers = value;
+                    setState(() {});
+                  }, _isWithNumbers),
                   const SizedBox(
                     height: 16,
                   ),
@@ -65,8 +77,15 @@ class _HomeScreensState extends State<HomeScreens> {
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.black),
                           onPressed: () {
-                            FlutterClipboard.copy(newPassoword)
-                                .then((value) => print('Copiado'));
+                            FlutterClipboard.copy(newPassoword).then((value) =>
+                                const AlertDialog(
+                                  title: Text('Senha copiada com sucesso!!'),
+                                  content: SingleChildScrollView(
+                                    child: ListBody(
+                                      children: [Text('data'), Text('data')],
+                                    ),
+                                  ),
+                                ));
                           },
                           child: const Text(
                             'Copiar senha',
